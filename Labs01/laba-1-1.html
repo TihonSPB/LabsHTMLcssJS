@@ -12,16 +12,19 @@
     <body>
         <!-- JavaScript-код внутри тега <script> для выполнения на стороне клиента -->
         <script>
-            // var Объявление переменных и присвоение значений.
-            var string1 = "Hello,";
-            var string2 = " World!";
-            // alert Всплывающее окно с сообщением.            
-            alert(string1 + string2);            
-             // var Объявление переменных и присвоение значений.
-            var myPi = 3.14;
-            var myFF = 'FF';
-            // alert Всплывающее окно с сообщением.
-            alert(myPi * myFF);
+            (function(){
+                "use strict";
+                // var Объявление переменных и присвоение значений.
+                var string1 = "Hello,";
+                var string2 = " World!";
+                // alert Всплывающее окно с сообщением.            
+                alert(string1 + string2);            
+                // var Объявление переменных и присвоение значений.
+                var myPi = 3.14;
+                var myFF = 'FF';
+                // alert Всплывающее окно с сообщением.
+                alert(myPi * myFF);
+            }());
         </script>        
     </body>
 </html>
