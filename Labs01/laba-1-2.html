@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>laba-1-2</title>
+</head>
+<body>
+    <h2 align="center">Таблица 10x10</h2>
+    <table id="myTable" border="1" align="center"></table>
+    <script>
+        // Получаем ссылку на таблицу
+        var mytab = document.getElementById('myTable');
+
+        // Создаем цикл для строк
+        for (var i = 1; i <= 10; i++) {
+            // Создаем новую строку
+            var row = document.createElement('tr');
+
+            // Создаем цикл для столбцов
+            for (var j = 1; j <= 10; j++) {
+                // Создаем новую ячейку
+                var cell = document.createElement('td');
+                // Вычисляем результат умножения i * j
+                var product = i * j;
+                // Устанавливаем текст ячейки равным результату умножения
+                cell.textContent = product;
+                // Добавляем ячейку в строку
+                row.appendChild(cell);
+            }
+            // Добавляем строку в таблицу
+            mytab.appendChild(row);
+        }
+    </script>
+</body>
+</html>
