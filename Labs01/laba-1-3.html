@@ -9,59 +9,57 @@
     <h2 align="center">Форма слова "день"</h2>
     <form oninput="updateResult()">
         <p align="center">Введите количество дней: 
-            <input type="number" id="daysInput" name="days">
+            <input type="number" min="0" id="daysInput">
         </p>
         <p align="center">До конца вашей учебы остается: 
             <output name="result">0 дней</output>
         </p>
     </form>
     <script>
-        // Самовызывающаяся функция (IIFE), дает ошибку "Uncaught ReferenceError ReferenceError: updateResult is not defined at oninput (путь к файлу: время)"
         
-        "use strict";
-
-        // Функция для определения правильной формы слова "день"
-        function getDayForm(n) {
-            // Определяем последнюю цифру числа
-            var lastDigit = n % 10;
-            // Определяем предпоследнюю цифру числа
-            var lastTwoDigits = n % 100;
-
-            // Правила для определения формы слова "день"
-            if (lastTwoDigits >= 11 && lastTwoDigits <= 19) {
-                return "дней";
-            } else if (lastDigit === 1) {
-                return "день";
-            } else if (lastDigit >= 2 && lastDigit <= 4) {
-                return "дня";
-            } else {
-                return "дней";
-            }
-        }       
+        (function(){
             
-        // Функция для обновления результата
-        function updateResult() {
-            // Получаем значение из поля ввода
-            var days = parseInt(document.getElementById('daysInput').value, 10);
+            "use strict";
 
-            // Проверяем, что введено число
-            if (!isNaN(days)) {
-                // Получаем правильную форму слова "день"
-                var dayForm = getDayForm(days);
-                // Формируем сообщение
-                var message = days + " " + dayForm;
-                // Отображаем сообщение в output
-                document.querySelector('output[name="result"]').value = message;
-            } else {
-                // Если введено не число, выводим сообщение об ошибке
-                document.querySelector('output[name="result"]').value = "Пожалуйста, введите число.";
-            }
+            // Функция для определения правильной формы слова "день"
+            function getDayForm(n) {
+                // Определяем последнюю цифру числа
+                var lastDigit = n % 10;
+                // Определяем предпоследнюю цифру числа
+                var lastTwoDigits = n % 100;
+
+                // Правила для определения формы слова "день"
+                if (lastTwoDigits >= 11 && lastTwoDigits <= 19) {
+                    return "дней";
+                } else if (lastDigit === 1) {
+                    return "день";
+                } else if (lastDigit >= 2 && lastDigit <= 4) {
+                    return "дня";
+                } else {
+                    return "дней";
+                }
+            }       
             
-        }
+            // Функция для обновления результата
+            window.updateResult = function() {
+                // Получаем значение из поля ввода
+                var days = parseInt(document.getElementById('daysInput').value, 10);
 
-        // Добавляем обработчик события input для поля ввода
-        document.getElementById('daysInput').addEventListener('input', updateResult);
-       
+                // Проверяем, что введено число
+                if (!isNaN(days)) {
+                    // Получаем правильную форму слова "день"
+                    var dayForm = getDayForm(days);
+                    // Формируем сообщение
+                    var message = days + " " + dayForm;
+                    // Отображаем сообщение в output
+                    document.querySelector('output[name="result"]').value = message;
+                } else {
+                    // Если введено не число, выводим сообщение об ошибке
+                    document.querySelector('output[name="result"]').value = "Пожалуйста, введите число.";
+                }
+                
+            };
+        }());        
     </script>
 </body>
 </html>
