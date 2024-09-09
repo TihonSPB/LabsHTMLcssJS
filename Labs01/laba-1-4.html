@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>laba-1-4</title>
+</head>
+<body>
+
+    <h2 align="center">Создание и использование объектов</h2>
+    
+    <script>
+
+        (function () {
+
+            "use strict"
+
+            // Класс NewClass
+            class NewClass {
+                constructor(title, url) {
+                    this.title = title;
+                    this.url = url;
+                }
+
+                // Метод вывода информации на экран
+                show() {
+                    document.write(`<h3 align="center">Заголовок: ${this.title}</h3>`);
+                    document.write(`<p align="center">URL: <a href="${this.url}">${this.url}</a></p>`);
+                }
+            }
+
+            // Создание объекта NewClass
+            const myObject = new NewClass("Мой HTML", "https://github.com/TihonSPB/LabsHTMLcssJS");
+
+            // Вызов метода show() для вывода информации на экран
+            myObject.show();
+
+        }());
+        
+    </script>
+</body>
+</html>
