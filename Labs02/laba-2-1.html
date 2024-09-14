@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>laba-2-1</title>
+</head>
+<body>
+    <header align="center">
+        <h2>Работа с объектами DOM и обработка событий в JavaScript</h2>    
+        <img id="myImage" style="width: 300px;" src="apple.jpg" alt="Изображение">
+    </header>
+        
+    <script>
+        (function () {
+
+            "use strict";
+
+            // Получаем ссылку на изображение
+            const image = document.getElementById('myImage');
+
+            // Переменная для отслеживания текущего состояния (увеличено/уменьшено)
+            let isZoomed = false;
+
+            function imageSize() {
+                if (isZoomed) {
+                    // Если изображение уже увеличено, уменьшаем
+                    image.style.width = '300px';
+                    isZoomed = false;
+                } else {
+                    // Если изображение не увеличено, увеличиваем
+                    image.style.width = '600px';
+                    isZoomed = true;
+                }
+            }
+
+            // Обработчик события клика по изображению
+            image.addEventListener('click', imageSize);
+
+        }());
+    </script>
+</body>
+</html>

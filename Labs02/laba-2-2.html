@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>laba-2-2</title>
+    <!--Стили-->
+    <style>
+        header {
+            text-align: center;
+        }
+        #change {          
+            transition: font-size 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2>Управление CSS из JavaScript.</h2>
+        <p id="change">Этот текст будет изменяться при наведении на ссылку.</p>
+        <!--<a href="#" id="trigger">Нажми</a>-->
+        <a href="#" id="trigger">Наведи</a>
+    </header>
+    
+    <script>
+        (function () {
+
+            "use strict";
+
+            function ChangeStyle() {
+
+                const element = document.getElementById('change');
+
+                element.style.color = 'green';
+                element.style.fontSize = '24px';
+                element.style.textDecoration = 'underline';
+                element.style.fontWeight = 'bold';
+            }
+            
+            // Вызов функции при клике на ссылку
+            /* 1. Полная запись
+            const link = document.getElementById('trigger');
+            link.addEventListener('click', ChangeStyle); 
+            */
+            // 2. Запись одной строкой
+            // document.getElementById('trigger').addEventListener('click', ChangeStyle);
+            
+            // Вызов функции при наведении курсора на ссылку
+            document.getElementById('trigger').addEventListener('mouseover', ChangeStyle);
+
+        }());
+    </script>
+</body>
+</html>
