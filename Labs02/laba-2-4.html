@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>laba-2-4</title>
+    <style>
+        header {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2>Обработка форм и организация обмена данными</h2>
+        <form id="registrationForm" action="#" method="POST"> <!--форма регистрации form-используется для сбора информации от пользователя-->
+			<fieldset>
+				<legend>Регистрация</legend>
+				<p>Пожалуйста, заполните эту форму, чтобы создать учетную запись.</p>
+
+				<label for="login">Логин</label>
+				<input type="text" placeholder="Enter Login" id="login" name="login" required>
+				
+				<label for="email">Ваш E-Mail</label>
+				<input type="email" placeholder="Enter Email" id="email" name="email" required>
+
+				<label for="psw">Пароль</label>
+				<input type="password" placeholder="Enter Password" id="password" name="password" required>
+
+				<label for="psw-repeat">Повторите пароль</label>
+				<input type="password" placeholder="Repeat Password" id="confirmPassword" name="confirmPassword" required>
+				
+				<input type = "reset">
+					
+				<p>Создавая учетную запись, вы соглашаетесь с нашей <a href="#">Политикой конфиденциальности</a>.</p>
+				<input type="submit" value="Регистрация" class="registerbtn">
+			</fieldset>
+			<p>У вас уже есть аккаунт? <a href="#">Войти</a>.</p>
+		</form>
+    </header>
+
+<script>
+    (function () {
+        "use strict"
+
+
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Предотвращаем отправку формы
+
+            const login = document.getElementById('login').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const email = document.getElementById('email').value;
+
+            // Проверка заполнения всех полей
+            if (!login || !password || !confirmPassword || !email) {
+                alert('Пожалуйста, заполните все поля.');
+                return;
+            }
+
+            // Проверка количества символов в пароле
+            if (password.length < 6 || password.length > 12) {
+                alert('Пароль должен содержать от 6 до 12 символов.');
+                return;
+            }
+
+            // Проверка совпадения паролей
+            if (password !== confirmPassword) {
+                alert('Пароли не совпадают.');
+                return;
+            }
+
+            // Проверка наличия символа @ в электронном адресе
+            if (!email.includes('@')) {
+                alert('Некорректный e-mail.');
+                return;
+            }
+
+            // Если все проверки пройдены, можно отправить форму
+            this.submit();
+        });
+
+    }());
+</script>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>laba-2-3</title>
+    <style>
+        header {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2>Работа с окнами в JavaScript</h2>
+        <!-- Ссылка для открытия нового окна -->
+        <a href="#" onclick="openNewWindow()">Новое окно</a>
+    </header>
+
+    <script>
+        (function () {
+        "use strict";
+
+            // Функция для открытия нового окна
+            window.openNewWindow = function() {
+                // Установка параметров нового окна
+                const windowFeatures = "width=300,height=400,menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes,toolbar=yes";
+
+                // Открытие нового окна
+                window.open("about:blank", "_blank", windowFeatures);
+            }
+        }());
+    </script>
+</body>
+</html>
