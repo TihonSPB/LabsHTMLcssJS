@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>laba-4-2</title>
+    <script src="modernizr.js"></script>
+    <style> 
+        header {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2>SVG-графика</h2>
+        <svg width="400" height="400"> <!--масштабируемая векторная графика-->
+            <line x1="90" y1="10" x2="300" y2="25" stroke="red" stroke-width="4" /> <!--линия; x1,y1 начальная точка; x2,y2 конечная точка-->
+            <polyline points="150 70,220 150, 300 50" stroke="white" stroke-width="6"/> <!--полилиния; points="x1 y1, x2 y2, x3 y3,..."-->
+            <circle cx="35" cy="35" r="30" stroke="white" stroke-width="4" fill="red" /> <!--круг; cx,cy центр круга; r радиус-->
+            <ellipse cx="95" cy="90" rx="35" ry="20" fill="yellow" /> <!--элипс-->
+            <rect width="60" height="40" x="150" y="45" fill="#FF9900" /> <!--прямоугольник-->
+            <rect x="20" y="20" rx="20" ry="20" width="150" height="150" style="fill:red;stroke:black;stroke-width:5;opacity:0.5" /> <!--прямоугольник со скруглениями и стилями-->
+            <polygon points="200 100, 300 150, 390 20" stroke="white" stroke-width="2" fill="yellow" /> <!--полигон-->
+            <text fill="#ffffff" font-size="45" font-family="Verdana" x="50" y="150">SVG</text> <!--текст-->
+        </svg>
+        <embed src="my-svg-file.svg" type="image/svg+xml" width="400" height="400" />
+        <object data="my-svg-file.svg" type="image/svg+xml" width="400" height="400"></object>
+    </header>
+    <script>
+        (function () {
+            "use strict";
+            // Проверка поддержки SVG
+            if (Modernizr.svg) {
+                console.log('Браузер поддерживает SVG.');
+            } else {
+                onsole.log('Браузер НЕ поддерживает SVG.');
+            }
+
+            // Проверка поддержки <embed>
+            if (Modernizr.embed) {
+                console.log('Браузер поддерживает <embed>.');
+            } else {
+                console.log('Браузер НЕ поддерживает <embed>.');
+            }
+
+            // Проверка поддержки <object>
+            if (Modernizr.object) {
+                console.log('Браузер поддерживает <object>.');
+            } else {
+                console.log('Браузер НЕ поддерживает <object>.');
+            }
+        }());
+    </script>
+</body>
+</html>
