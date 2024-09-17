@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>laba-4-1</title>
+    <script src="modernizr.js"></script>
+    <style> 
+        header {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2>Изображение с градиентом цвета</h2>
+        <strong class="message" id="supportMessage"></strong>
+        <canvas id="myGradientCanvas" width="400" height="300"></canvas>
+    </header>
+    <script>
+        (function () {
+            "use strict";
+
+            // Получаем элемент с id="supportMessage"
+            const supportMessage = document.getElementById('supportMessage');
+
+            // Проверяем, существует ли элемент с id="supportMessage"
+            if (supportMessage) {
+                // Проверяем поддержку браузерами элемента <canvas> с помощью Modernizr
+                if (Modernizr.canvas) {
+                    // Если поддержка есть, устанавливаем сообщение о поддержке
+                    supportMessage.innerHTML = "Есть поддержка элемента <b>&lt;canvas&gt;</b><br><br>";
+                    
+                    // Получаем элемент canvas с id="myGradientCanvas"
+                    const canvas = document.getElementById('myGradientCanvas');
+
+                    // Проверяем, существует ли элемент с id="myGradientCanvas"
+                    if (canvas) {
+                        // Получаем контекст рисования 2D
+                        const ctx = canvas.getContext('2d');
+
+                        // Создаем линейный градиент, начинающийся в верхнем левом углу (0, 0)
+                        // и заканчивающийся в нижнем правом углу (canvas.width, canvas.height)
+                        const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+
+                        // Добавляем цвета в градиент на определенных позициях
+                        gradient.addColorStop(0.1, 'DeepPink');
+                        gradient.addColorStop(0.45, 'LightSeaGreen');
+                        gradient.addColorStop(0.8, 'yellow');
+
+                        // Устанавливаем градиент как стиль заливки
+                        ctx.fillStyle = gradient;
+
+                        // Заполняем весь холст градиентом
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    } else {
+                        // Если элемент canvas не найден, выводим сообщение об ошибке в консоль
+                        console.error("Элемент canvas с id 'myGradientCanvas' не найден!");
+                    }
+                } else {
+                    // Если поддержки <canvas> нет, устанавливаем сообщение об отсутствии поддержки
+                    supportMessage.innerHTML = "Нет поддержки элемента <b>&lt;canvas&gt;</b>!<br><br>";
+                }
+            } else {
+                // Если элемент с id="supportMessage" не найден, выводим сообщение об ошибке в консоль
+                console.error("Элемент с id 'supportMessage' не найден!");
+            }
+        }());
+    </script>
+</body>
+</html>
