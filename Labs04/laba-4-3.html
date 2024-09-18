@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>laba-4-3</title>
+    <script src="modernizr.js"></script>
+    <style>
+        header {
+            text-align: center;
+        }
+        video, audio, embed {
+            width: 100%;
+            max-width: 600px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2>Использование тегов HTML5 для аудио, видео и флеш-объектов</h2>
+
+        <h3>Аудио</h3>
+        <audio controls>
+            <source src="my-audio-file.mp3" type="audio/mpeg">
+            <source src="my-audio-file.ogg" type="audio/ogg">
+            Ваш браузер не поддерживает тег audio.
+        </audio>
+    
+        <h3>Видео</h3>
+        <video controls>
+            <source src="my-video-file.mp4" type="video/mp4">
+            <source src="my-video-file.ogg" type="video/ogg">
+            Ваш браузер не поддерживает тег video.
+        </video>
+    
+        <h3>Флеш-объект</h3>
+        <embed src="my-flash-file.swf" type="application/x-shockwave-flash" width="600" height="300">
+    </header>
+    
+    <script>
+        (function () {
+            "use strict";
+            // Проверка поддержки тегов audio и video с использованием Modernizr
+            if (!Modernizr.audio) {
+                alert('Ваш браузер не поддерживает тег audio.');
+            }
+            if (!Modernizr.video) {
+                alert('Ваш браузер не поддерживает тег video.');
+            }
+
+            // Проверка поддержки тега embed
+            if (!Modernizr.embed) {
+                alert('Ваш браузер не поддерживает тег embed.');
+            }
+        }());
+    </script>
+</body>
+</html>
