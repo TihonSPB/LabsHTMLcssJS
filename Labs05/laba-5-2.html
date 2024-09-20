@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>laba-5-2</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        button {
+            cursor: pointer;
+            margin: 5px 5px;
+        }
+        li {
+            margin: 5px 5px;
+            width: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <h2>Телефонная записная книжка (сохранение пользовательских данных на стороне клиента)</h2>
+    <form id="phoneForm">
+        <input type="text" id="name" placeholder="Имя" pattern="[A-Za-zА-Яа-яЁё\s]+" required>
+        <input type="tel" id="phone" placeholder="Телефон" pattern="[\d\s\(\)\-\+]+" required>
+        <button type="submit">Добавить</button>
+    </form>
+    <ul id="phoneList"></ul>
+
+    <script>
+        (function () {
+            "use strict"
+
+            const form = document.getElementById('phoneForm');
+            const nameInput = document.getElementById('name');
+            const phoneInput = document.getElementById('phone');
+            const phoneList = document.getElementById('phoneList');
+
+            // Проверка существования элементов
+            if(!form){console.error("Элемент с id 'phoneForm' не найден!");}
+            if(!nameInput){console.error("Элемент с id 'name' не найден!");}
+            if(!phoneInput){console.error("Элемент с id 'phone' не найден!");}
+            if(!phoneList){console.error("Элемент с id 'phoneList' не найден!");}
+
+            // Загрузка записей из localStorage
+            function loadPhoneBook() {
+                phoneList.innerHTML = ''; // Очищаем список
+                const phoneBook = JSON.parse(localStorage.getItem('phoneBook')) || []; // Получаем записи из localStorage или пустой массив
+                phoneBook.forEach((entry, index) => { // Добавляем каждую запись в DOM
+                    addEntryToDOM(entry, index);
+                });
+            }
+
+            // Добавление записи в DOM
+            function addEntryToDOM(entry, index) {
+                const li = document.createElement('li'); // Создаем новый элемент списка
+                li.innerHTML = `Имя: ${entry.name}, Телефон: ${entry.phone} <button data-index="${index}">Удалить</button>`; // Заполняем данными и кнопкой удаления
+                phoneList.appendChild(li); // Добавляем элемент в список
+            }
+
+            // Сохранение записи в localStorage
+            function savePhoneBook(phoneBook) {
+                localStorage.setItem('phoneBook', JSON.stringify(phoneBook)); // Преобразуем массив записей в JSON и сохраняем в localStorage
+            }
+
+            // Обработчик отправки формы
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Предотвращаем стандартное поведение формы (перезагрузку страницы)
+                const name = nameInput.value.trim(); // Получаем значения полей формы и удаляем лишние пробелы
+                const phone = phoneInput.value.trim();
+
+                if (name && phone) { // Проверяем, что поля не пустые
+                    const phoneBook = JSON.parse(localStorage.getItem('phoneBook')) || []; // Получаем текущие записи из localStorage или создаем пустой массив
+                    phoneBook.push({ name, phone }); // Добавляем новую запись в массив
+                    savePhoneBook(phoneBook); // Сохраняем обновленный массив в localStorage
+                    addEntryToDOM({ name, phone }, phoneBook.length - 1); // Добавляем новую запись в DOM
+                    nameInput.value = ''; // Очищаем поля формы
+                    phoneInput.value = '';
+                }
+            });
+
+            // Обработчик удаления записи
+            phoneList.addEventListener('click', function(event) {
+                if (event.target.tagName === 'BUTTON') { // Проверяем, что кликнули по кнопке удаления
+                    const index = event.target.getAttribute('data-index'); // Получаем индекс записи для удаления
+                    const phoneBook = JSON.parse(localStorage.getItem('phoneBook')) || []; // Получаем текущие записи из localStorage или создаем пустой массив
+                    phoneBook.splice(index, 1); // Удаляем запись по индексу
+                    savePhoneBook(phoneBook); // Сохраняем обновленный массив в localStorage
+                    loadPhoneBook(); // Перезагружаем список записей
+                }
+            });
+
+        // Загрузка записей при загрузке страницы
+        loadPhoneBook();
+        }());
+    </script>
+</body>
+</html>
