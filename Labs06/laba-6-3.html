@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="modernizr.js"></script> <!-- Подключаем Modernizr для проверки поддержки Geolocation API -->
+    <title>laba-6-3</title>
+    <style>
+        body {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h2>Определение местоположения с помощью Geolocation API</h2>
+    <button onclick="getLocation()">Местоположение</button>
+    <p id="status"></p> 
+    <p id="coordinates"></p> 
+    <script>
+        (function() {
+            // Добавляем обработчик события, который срабатывает после полной загрузки DOM
+            window.addEventListener('DOMContentLoaded', () => {
+                // Функция для получения местоположения
+                function getLocation() {
+                    // Проверяем поддержку Geolocation API с помощью Modernizr
+                    if (Modernizr.geolocation) {
+                        document.getElementById('status').textContent = 'Определяем местоположение...';
+                        // Запрашиваем текущее местоположение и передаем функции для обработки успешного и неуспешного результатов
+                        navigator.geolocation.getCurrentPosition(showPosition, showError);
+                    } else {
+                        document.getElementById('status').textContent = 'Geolocation API не поддерживается вашим браузером.';
+                    }
+                }
+
+                // Функция для отображения координат и точности
+                function showPosition(position) {
+                    let latitude = position.coords.latitude; // Широта
+                    let longitude = position.coords.longitude; // Долгота
+                    let accuracy = position.coords.accuracy; // Точность в метрах
+                    document.getElementById('status').textContent = 'Местоположение:';
+                    // Выводим координаты и точность
+                    document.getElementById('coordinates').innerHTML = `
+                        Широта: ${latitude} <br>
+                        Долгота: ${longitude} <br>
+                        Точность: ${accuracy} метров
+                    `;
+                }
+
+                // Функция для обработки ошибок определения местоположения
+                function showError(error) {
+                    switch (error.code) {
+                        case error.PERMISSION_DENIED:
+                            document.getElementById('status').textContent = 'Запрос на определение местоположения отклонен.';
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            document.getElementById('status').textContent = 'Информация о местоположении недоступна.';
+                            break;
+                        case error.TIMEOUT:
+                            document.getElementById('status').textContent = 'Запрос на определение местоположения превысил допустимое время ожидания.';
+                            break;
+                        case error.UNKNOWN_ERROR:
+                            document.getElementById('status').textContent = 'Произошла неизвестная ошибка.';
+                            break;
+                    }
+                }
+
+                // Делаем функцию getLocation доступной глобально
+                window.getLocation = getLocation;
+            });
+        })();
+    </script>
+</body>
+</html>

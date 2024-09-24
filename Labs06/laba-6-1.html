@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>laba-6-1</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+        }        
+        header {
+            text-align: center;
+        }
+        form {
+            border-radius: 10px;
+            padding: 10px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            width: 300px;
+            background: rgb(235, 235, 235);
+        }
+        div{      
+            margin: 10px;
+            border-radius: 10px;
+        }
+        .draggable {
+            padding: 20px;
+            box-shadow: 1px 1px 5px 1px grey,
+            1px 1px 2px 0px white inset;
+        }
+        .box {
+            box-shadow: -2px -2px 5px 1px white inset,
+            2px 2px 5px 1px gray inset;
+        }        
+    </style>
+</head>
+<body>
+    <header>
+        <h2>Drag and Drop API</h2>
+        <form>
+            <div class="box" id="box1" ondragover="allowDrop(event)" ondrop="drop(event)">
+                <h3>Блок 1</h3>
+                
+                <div class="draggable" id="text2" draggable="true" ondragstart="drag(event)">Text 2</div>
+                <div class="draggable" id="text3" draggable="true" ondragstart="drag(event)">Text 3</div>
+            </div>
+            <div class="box" id="box2" ondragover="allowDrop(event)" ondrop="drop(event)">
+                <h3>Блок 2</h3>
+                <div class="draggable" id="text1" draggable="true" ondragstart="drag(event)">Text 1</div>
+                <!-- Пустой блок -->
+            </div>
+        </form>
+    </header>  
+<script>
+    (function () {
+        "use strict";
+
+        function allowDrop(event) {
+            event.preventDefault(); // Предотвращаем стандартное поведение
+        }
+
+        function drag(event) {
+            event.dataTransfer.setData("text", event.target.id); // Сохраняем идентификатор элемента в dataTransfer
+        }
+
+        function drop(event) {
+            event.preventDefault(); // Предотвращаем стандартное поведение
+
+            const data = event.dataTransfer.getData("text"); // Получаем данные из dataTransfer
+            const draggableElement = document.getElementById(data); // Находим перетаскиваемый элемент
+
+            // Делаем drop на элемент с классом "box"
+            if (event.target.classList.contains('box')) {
+                event.target.appendChild(draggableElement); // Добавляем элемент в целевой блок
+            } else {
+                event.target.closest('.box').appendChild(draggableElement); // Если не на box, добавляем в родительский box
+            }
+        }
+
+        // Привязываем события dragover и drop к элементам
+        const boxes = document.querySelectorAll('.box');
+        boxes.forEach(box => {
+            box.addEventListener('dragover', allowDrop);
+            box.addEventListener('drop', drop);
+        });
+
+        // Привязываем событие dragstart к элементам, у которых есть класс "draggable"
+        const draggableItems = document.querySelectorAll('.draggable');
+        draggableItems.forEach(item => {
+            item.addEventListener('dragstart', drag);
+        });
+
+        // Отладочные сообщения для проверки событий
+        document.addEventListener('dragstart', (event) => {
+            console.log('dragstart:', event.target.id);
+        });
+
+        document.addEventListener('dragover', (event) => {
+            console.log('dragover:', event.target.id);
+        });
+
+        document.addEventListener('drop', (event) => {
+            console.log('drop:', event.target.id);
+        });
+
+    }());
+</script>
+
+</body>
+</html>
