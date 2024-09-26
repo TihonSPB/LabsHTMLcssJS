@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отзывы</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Отзывы</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="about.html">О нас</a></li>
+                <li><a href="menu.html">Меню</a></li>
+                <li><a href="contact.html">Контакты</a></li>
+                <li><a href="reviews.html">Отзывы</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article>
+            <h2>Оставьте свой отзыв</h2>
+            <form id="reviewForm">
+                <label for="name">Имя:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="rating">Оценка:</label>
+                <input type="range" id="rating" name="rating" min="1" max="5" required>
+                <label for="review">Отзыв:</label>
+                <textarea id="review" name="review" required></textarea>
+                <button type="submit">Отправить</button>
+            </form>
+            <h2>Отзывы пользователей</h2>
+            <div id="reviewsList"></div>
+        </article>
+    </main>
+    <footer>
+        <p>&copy; 2024 Моя уютная кофейня</p>
+    </footer>
+    <script>
+        (function () {
+            "use strict";
+            const form = document.getElementById('reviewForm');
+            if(!form){console.error("Элемент с id 'reviewForm' не найден!");}
+            const reviewsList = document.getElementById('reviewsList');
+            if(!reviewsList){console.error("Элемент с id 'reviewsList' не найден!");}
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const name = document.getElementById('name').value;
+                if(!name){console.error("Элемент с id 'name' не найден!");}
+                const email = document.getElementById('email').value;
+                if(!email){console.error("Элемент с id 'email' не найден!");}
+                const rating = document.getElementById('rating').value;
+                if(!rating){console.error("Элемент с id 'rating' не найден!");}
+                const review = document.getElementById('review').value;
+                if(!review){console.error("Элемент с id 'review' не найден!");}
+
+                const reviewData = { name, email, rating, review };
+                const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+                reviews.push(reviewData);
+                localStorage.setItem('reviews', JSON.stringify(reviews));
+
+                displayReviews();
+                form.reset();
+            });
+
+            function displayReviews() {
+                const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+                reviewsList.innerHTML = '';
+                reviews.forEach(review => {
+                    const reviewElement = document.createElement('div');
+                    reviewElement.innerHTML = `<p><strong>${review.name}</strong> (${review.email})</p>
+                                            <p>Оценка: ${review.rating}</p>
+                                            <p>${review.review}</p>`;
+                    reviewsList.appendChild(reviewElement);
+                });
+            }
+
+            displayReviews();
+        }());
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>О нас</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="about.html">О нас</a></li>
+                <li><a href="menu.html">Меню</a></li>
+                <li><a href="contact.html">Контакты</a></li>
+                <li><a href="reviews.html">Отзывы</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article>
+            <h2>Наша история</h2>
+            <p>Мы открылись в 2024 году и с тех пор стараемся создать уютную атмосферу для наших гостей.</p>
+            <canvas id="coffeeCanvas" width="200" height="200"></canvas>
+            <script>
+                (function () {
+                    "use strict";
+                    const canvas = document.getElementById('coffeeCanvas');
+                    if(!canvas){console.error("Элемент с id 'coffeeCanvas' не найден!");}
+                    const ctx = canvas.getContext('2d');
+                    ctx.fillStyle = '#A0522D';
+                    ctx.fillRect(50, 50, 100, 100);
+                    ctx.fillStyle = '#8B4513';
+                    ctx.beginPath();
+                    ctx.arc(100, 100, 50, 0, Math.PI * 2);
+                    ctx.fill();
+                }());
+            </script>
+        </article>
+    </main>
+    <footer>
+        <p>&copy; 2024 Моя уютная кофейня</p>
+    </footer>
+</body>
+</html>
